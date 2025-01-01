@@ -1,354 +1,441 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Learning Reflections</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Algorithm Design and Analysis Concepts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #121212;
+            --text-color: #f4f4f4;
+            --accent-color: #ffd700;
+            --section-bg: #1f1f1f;
+            --border-color: #333;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
-    
+
         body {
-            background-color: #0d1117;
-            color: #c9d1d9;
-            line-height: 1.8;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
             padding: 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
-    
-        h1 {
+
+        header {
+            background-color: var(--section-bg);
+            color: var(--text-color);
+            padding: 2rem;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
             font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #58a6ff;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
         }
-    
+
+        header p {
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+            opacity: 0.8;
+        }
+
+        section {
+            background-color: var(--section-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+        }
+
         h2 {
-            font-size: 2rem;
-            font-weight: 500;
-            margin-top: 2rem;
+            color: var(--accent-color);
+            font-size: 1.8rem;
             margin-bottom: 1rem;
-            color: #79c0ff;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
         }
-    
+
         h3 {
-            font-size: 1.5rem;
-            font-weight: 500;
+            color: var(--text-color);
+            font-size: 1.4rem;
             margin-top: 1.5rem;
             margin-bottom: 0.75rem;
-            color: #b2ff73;
         }
-    
-        p {
-            margin-bottom: 1.5rem;
-            color: #b1bac4;
+
+        p, ul li {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            opacity: 0.9;
         }
-    
-        hr {
-            border: none;
-            border-top: 1px solid #30363d;
-            margin: 2rem 0;
-        }
-    
-        ul, ol {
-            margin-bottom: 1.5rem;
+
+        ul {
+            margin-top: 1rem;
             padding-left: 1.5rem;
-            color: #b1bac4;
+            list-style-type: none;
         }
-    
-        li {
-            margin-bottom: 0.5rem;
+
+        ul li {
+            margin-bottom: 0.75rem;
+            position: relative;
         }
-    
-        code {
-            font-family: 'Fira Code', Menlo, monospace;
-            background-color: #161b22;
-            padding: 0.25em 0.5em;
-            border-radius: 5px;
-            font-size: 0.9em;
-            color: #d2a8ff;
+
+        ul li::before {
+            content: '•';
+            color: var(--accent-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
         }
-    
-        blockquote {
-            border-left: 4px solid #30363d;
-            padding-left: 1rem;
-            margin: 1.5rem 0;
-            color: #8b949e;
-            font-style: italic;
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 1.5rem;
+            overflow: hidden;
+            border-radius: 10px;
         }
-    
+
+        table th, table td {
+            color: var(--text-color);
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        table th {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            font-weight: 600;
+        }
+
+        table tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        table caption {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            color: var(--accent-color);
+        }
+
         a {
-            color: #58a6ff;
+            display: inline-block;
             text-decoration: none;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            padding: 0.75rem 1.25rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
-    
+
         a:hover {
-            text-decoration: underline;
+            background-color: #e6c200;
+            transform: translateY(-2px);
         }
-    
+
         @media (max-width: 768px) {
             body {
-                padding: 1.5rem;
+                padding: 1rem;
             }
-    
-            h1 {
+
+            header h1 {
                 font-size: 2rem;
             }
-    
-            h2 {
-                font-size: 1.75rem;
+
+            section h2 {
+                font-size: 1.5rem;
             }
-    
-            h3 {
-                font-size: 1.25rem;
+
+            section p, ul li {
+                font-size: 0.95rem;
+            }
+
+            a {
+                padding: 0.6rem 1rem;
             }
         }
     </style>
-    
 </head>
 <body>
-    <h1>Course Learning Reflections</h1>
+    <header>
+        <h1>Algorithm Design and Analysis Concepts</h1>
+        <p>A comprehensive guide to key topics in algorithm design, efficiency, and real-world applications.</p>
+    </header>
 
-    <div class="question">
-        <h3>➡ What are the kinds of problems we see in the nature? (iteration, recursion, backtracking)</h3>
-        
-        <p><strong>A: Iteration:</strong> Problems we see in the nature are:</p>
-        <ol>
-            <li>Ants repeatedly explore paths, leaving their trails that make to find efficient route (Optimization from Algorithms Portfolio)</li>
-            <li>Seasons change as weather alternates between heating and cooling, reflecting nature's iterative process</li>
-        </ol>
-
-        <p><strong>B: Backtracking:</strong></p>
-        <p>It involves exploring solutions by trying paths and Leaving the hard(difficult/unuse) ones Many animals use backtracking for Searching for food and finding the optimal route to reach their house quick by escaping predators Maze - where you retrace your path and try alternative routes when hitting a dead end</p>
-
-        <p><strong>Recursion:</strong> Divide and Conquer (merge sort huh?): Natural phenomena like river branching or root systems, which divide into smaller parts.</p>
-    </div>
-
-    <div class="question">
-        <h3>➡ What is space and time efficiency? Why are they important? Explain the different class of problems and orders of growth</h3>
-        
-        <div class="highlight">
-            <p><strong>Time Efficiency:</strong> measures the time required to execute an algorithm and represents the number of basic operations performed by an algorithm</p>
-            <p><strong>Space Efficiency:</strong> measures the memory(storage) required by an algorithm, for tracking how much memory is the input size and determining how much additional memory is needed to solve a problem</p>
-        </div>
-
-        <p>A good algorithm executes quickly and saves space in the process. we should find a good medium of space and time (space and time complexity). In the world of computer science to become a good engineer, we need to write algorithms that are time efficient and use less memory. It should be resource optimized, solving larger problems with limited computing power and giving Impact on users experience and system performance</p>
-
-        <h4>Complexity Classes and Orders of Growth:</h4>
+    <section>
+        <h2>1) Problems in Nature: Iteration, Recursion, and Backtracking</h2>
+        <p>Nature often inspires three main problem-solving approaches:</p>
         <ul>
-            <li><span class="complexity">O(1) - Constant Time:</span> It has fixed runtime regardless of input size Examples: Array access, simple arithmetic operations</li>
-            <li><span class="complexity">O(log n) - Logarithmic Time:</span> its Runtime grows logarithmically Examples: Tree operations</li>
-            <li><span class="complexity">O(n) - Linear Time:</span> Runtime grows linearly with input size Examples: Linear search</li>
-            <li><span class="complexity">O(n log n) - Linearithmic Time:</span> Efficient sorting algorithms Examples: Merge sort, heap sort</li>
-            <li><span class="complexity">O(n²) - Quadratic Time:</span> Time grows with the square of the input size. Examples: Bubble sort, simple nested loops</li>
-            <li><span class="complexity">O(2ⁿ) - Exponential Time:</span> Runtime doubles with each input addition Examples: Recursive Fibonacci, brute-force</li>
-            <li><span class="complexity">O(n!) - Factorial Time:</span> Extremely inefficient Examples: Traveling salesman problem (brute force)</li>
+            <li><strong>Iteration:</strong> Repeatedly solving subproblems using loops. We have studied factorial calculation, array traversal iteration examples.</li>
+            <li><strong>Recursion:</strong> Breaking problems into smaller instances. We have studied Fibonacci sequence, Tower of Hanoi recursion examples.</li>
+            <li><strong>Backtracking:</strong> Exploring all solutions by eliminating invalid paths. We have studied N-Queens problem, maze navigation, Sudoku backtracking examples.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>2) Space and Time Efficiency</h2>
+        <p><strong>Time Efficiency:</strong> Measures how fast an algorithm executes.</p>
+        <p><strong>Space Efficiency:</strong> Measures the amount of memory used by an algorithm.</p>
+        <table>
+            <caption>Classes of Problems and Time Complexities</caption>
+            <thead>
+                <tr>
+                    <th>Problem Class</th>
+                    <th>Example Algorithms</th>
+                    <th>Order of Growth (Time Complexity)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Constant Time</td>
+                    <td>Accessing an array element</td>
+                    <td>O(1)</td>
+                </tr>
+                <tr>
+                    <td>Logarithmic Time</td>
+                    <td>Binary Search</td>
+                    <td>O(log n)</td>
+                </tr>
+                <tr>
+                    <td>Linear Time</td>
+                    <td>Linear Search</td>
+                    <td>O(n)</td>
+                </tr>
+                <tr>
+                    <td>Linearithmic Time</td>
+                    <td>Merge Sort, Quick Sort (average case)</td>
+                    <td>O(n log n)</td>
+                </tr>
+                <tr>
+                    <td>Quadratic Time</td>
+                    <td>Bubble Sort, Insertion Sort</td>
+                    <td>O(n²)</td>
+                </tr>
+                <tr>
+                    <td>Cubic Time</td>
+                    <td>Matrix Multiplication (naive)</td>
+                    <td>O(n³)</td>
+                </tr>
+                <tr>
+                    <td>Exponential Time</td>
+                    <td>Solving NP-complete problems, Recursive Backtracking</td>
+                    <td>O(2ⁿ)</td>
+                </tr>
+                <tr>
+                    <td>Factorial Time</td>
+                    <td>Generating all permutations</td>
+                    <td>O(n!)</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>3) Algorithm Design Principles</h2>
+        <p>Key principles that guide efficient algorithm design:</p>
+        <ul>
+            <li><strong>Decomposition:</strong> Break complex problems into manageable sub-problems to simplify solutions.</li>
+            <li><strong>Pattern Recognition:</strong> Identify recurring structures to apply reusable solutions.</li>
+            <li><strong>Abstraction:</strong> Focus on the essential details by ignoring irrelevant complexities.</li>
+            <li><strong>Brave and Cautious Travel:</strong> Balance exploring risky options with safe alternatives for optimization.</li>
+            <li><strong>Pruning:</strong> Eliminate unnecessary possibilities early (e.g., alpha-beta pruning in search trees).</li>
+            <li><strong>Lazy Propagation / Evaluation:</strong> Delay computations until absolutely necessary to save resources.</li>
+            <li><strong>Sliding Window:</strong> Efficiently process subsets of data with a dynamic range (e.g., in substring problems).</li>
+            <li><strong>Level Order Traversal:</strong> Traverse hierarchical structures level by level for breadth-first exploration.</li>
+            <li><strong>Hierarchical Data:</strong> Represent data in tree-like structures for better organization and access.</li>
+            <li><strong>Edge Relaxation:</strong> Gradually reduce edge weights to find shortest paths (e.g., in Dijkstra's algorithm).</li>
+            <li><strong>Balancing and Rotations:</strong> Maintain balanced structures for efficient operations (e.g., AVL trees).</li>
+            <li><strong>Kleene Closure:</strong> Handle repetitive patterns or sequences effectively in automata and regex.</li>
+            <li><strong>Pre-Computing:</strong> Compute results in advance to speed up query responses.</li>
+            <li><strong>Parental Dominance:</strong> Ensure parent nodes dominate children for ordered structures (e.g., heaps).</li>
+            <li><strong>Prefix and Suffix:</strong> Utilize pre-calculated prefix or suffix information to solve range-based problems.</li>
+            <li><strong>Partitioning:</strong> Divide data into subsets to simplify and optimize computations (e.g., quicksort partition).</li>
+            <li><strong>Bit Manipulations:</strong> Exploit binary operations for compact and efficient data processing.</li>
+            <li><strong>Memoization:</strong> Store already computed results to avoid redundant calculations (e.g., Fibonacci series).</li>
+            <li><strong>Invariants:</strong> Maintain consistent properties throughout an algorithm's execution for correctness.</li>
+            <li><strong>Shortest Path Trees:</strong> Build trees from source nodes to minimize path costs (e.g., Prim's, Dijkstra's).</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>4) Hierarchical Data and Tree Structures</h2>
+        <p>Tree-based data structures help manage hierarchical data:</p>
+        <ul>
+            <li><strong>Binary Tree:</strong> Used for hierarchical storage like file systems.</li>
+            <li><strong>Binary Search Tree (BST):</strong> Efficient searching and insertion operations.</li>
+            <li><strong>Self-Balancing Trees:</strong> AVL, Red-Black Trees for maintaining performance.</li>
+            <li><strong>Heap:</strong> Ideal for priority queue operations.</li>
+            <li><strong>Trie:</strong> Useful for autocomplete and dictionary applications.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>5) Array Query Algorithms</h2>
+        <p>Array query algorithms optimize range operations:</p>
+        <ul>
+            <li><strong>Segment Tree:</strong> Supports efficient range queries and updates for problems like range sum or minimum.</li>
+            <li><strong>Fenwick Tree:</strong> Provides efficient point updates and prefix sum operations.</li>
+            <li><strong>Sparse Table:</strong> Handles range queries like minimum or greatest common divisor (GCD) efficiently in immutable arrays.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>6) Trees vs. Graphs</h2>
+        <table>
+            <tr>
+                <th>TREES</th>
+                <th>GRAPHS</th>
+            </tr>
+            <tr>
+                <td>Hierarchical structures without cycles</td>
+                <td>Non-hierarchical, can contain cycles</td>
+            </tr>
+            <tr>
+                <td>Preorder, Inorder, Postorder Traversal</td>
+                <td>DFS, BFS Traversal</td>
+            </tr>
+            <tr>
+                <td>Used for family trees, directory hierarchies</td>
+                <td>Used for networks, social graphs</td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        <h2>7) Sorting and Searching Algorithms</h2>
+        <p>Sorting and searching algorithms play a crucial role in efficiently organizing and retrieving data. They are fundamental to computer science and have numerous real-world applications:</p>
+
+        <h3>Sorting Algorithms</h3>
+        <p>Sorting algorithms are used to arrange data in a specific order, making it easier to search, process, and analyze.</p>
+        <ul>
+            <li><strong>Bubble Sort:</strong> Repeatedly compares adjacent elements and swaps them if they are in the wrong order. <em>Real-world use:</em> Suitable for small datasets or educational purposes to demonstrate algorithm basics.</li>
+            <li><strong>Merge Sort:</strong> Uses a divide-and-conquer approach to split the array into halves, sort them, and merge. <em>Real-world use:</em> Effective in applications requiring stable sorting, such as organizing large datasets in e-commerce.</li>
+            <li><strong>Quick Sort:</strong> Partitions the array and recursively sorts each partition. <em>Real-world use:</em> Used in database sorting and language library implementations for its efficiency in most cases.</li>
+            <li><strong>Heap Sort:</strong> Builds a heap data structure to select the maximum/minimum element efficiently. <em>Real-world use:</em> Applied in priority queue management and resource allocation tasks.</li>
         </ul>
 
-        <p>Visualization of Growth Rates Copy:<br>
-        O(1) < O(log n) < O(n) < O(n log n) < O(n²) < O(2ⁿ) < O(n!)</p>
-
-        <p>we generally choose algorithms with lower complexity classes looking between time and space efficiency and optimize based on specific problem constraints</p>
-    </div>
-
-    <div class="question">
-        <h3>➡ Take away from different design principles from chapter 2</h3>
-        
-        <h4>Sorting Algorithms:</h4>
+        <h3>Searching Algorithms</h3>
+        <p>Searching algorithms are used to locate an element in a dataset efficiently, particularly in large collections of data.</p>
         <ul>
-            <li>Bubble Sort: Simple and uses brute force, best for small datasets</li>
-            <li>Selection Sort: Picks the smallest item repeatedly; good for small datasets</li>
-            <li>Insertion Sort: Quick for almost-sorted data but slow for large datasets</li>
-            <li>Merge Sort: Splits and merges data efficiently; great for large datasets</li>
-            <li>Quick Sort: Fast and flexible, ideal for large datasets</li>
-            <li>Heap Sort: Memory-efficient and in-place but less common than Quick/Merge Sort</li>
+            <li><strong>Linear Search:</strong> Scans each element sequentially until the target is found. <em>Real-world use:</em> Useful for small or unsorted datasets, such as scanning through a contact list.</li>
+            <li><strong>Binary Search:</strong> Divides the dataset into halves to search efficiently, but requires sorted data. <em>Real-world use:</em> Used in applications like dictionary word lookups and searching sorted product catalogs.</li>
+            <li><strong>Hash-Based Search:</strong> Uses a hash table for near-instant lookups. <em>Real-world use:</em> Applied in password validation and database indexing.</li>
+            <li><strong>DFS/BFS:</strong> Depth-First Search and Breadth-First Search are graph-based search techniques. <em>Real-world use:</em> Used in navigation systems and network troubleshooting.</li>
         </ul>
 
-        <h4>String Search Algorithms:</h4>
+        <h3>Real-World Connection</h3>
+        <p>Sorting and searching algorithms are deeply integrated into modern technologies:</p>
         <ul>
-            <li>Boyer-Moore: Quickly finds patterns in text by skipping unnecessary checks</li>
-            <li>Knuth-Morris-Pratt (KMP): Avoids repeating checks by preprocessing the pattern</li>
-            <li>Rabin-Karp: Uses hashing to search for patterns more efficiently than brute force</li>
+            <li><strong>Search Engines:</strong> Use search algorithms to locate relevant web pages and index them efficiently.</li>
+            <li><strong>E-commerce Platforms:</strong> Employ sorting to display products by price, relevance, or popularity.</li>
+            <li><strong>Navigation Systems:</strong> Apply graph search algorithms like BFS and Dijkstra's algorithm for shortest-path calculations.</li>
+            <li><strong>Big Data Analysis:</strong> Uses sorting algorithms to preprocess large datasets for faster querying and analytics.</li>
+            <li><strong>Social Media:</strong> Implements sorting to organize feeds and recommendations based on user preferences.</li>
         </ul>
+    </section>
 
-        <h4>Graph Algorithms:</h4>
+    <section>
+        <h2>8) Graph Algorithms</h2>
+        <p>Graph algorithms are essential tools for solving complex network-related problems. They are widely used in various fields like transportation, communication, and social networks.</p>
         <ul>
-            <li>Kruskal's: Finds the shortest way to connect all points without cycles</li>
-            <li>Prim's: Connects all points step by step with the smallest link</li>
-            <li>Dijkstra's: Finds the shortest path from one point to all others (no negative weights)</li>
-            <li>Floyd's: Finds shortest paths between all points (no negative cycles)</li>
-            <li>Warshall's: Finds all possible paths between points but not the shortest ones</li>
+            <li>
+                <strong>Minimum Spanning Tree (MST):</strong> 
+                <p>Algorithms like Kruskal's and Prim's are used to optimize the design of networks by connecting all points (nodes) with the minimum possible total edge weight. </p>
+                <p><em>Applications:</em></p>
+                <ul>
+                    <li>Designing efficient electrical grids to minimize wiring costs.</li>
+                    <li>Creating pipeline networks for water, gas, or oil distribution.</li>
+                    <li>Constructing low-cost road or communication networks.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Shortest Path Algorithms:</strong>
+                <p>Algorithms such as Dijkstra's and Bellman-Ford determine the shortest path between nodes in weighted graphs.</p>
+                <p><em>Applications:</em></p>
+                <ul>
+                    <li>Navigation systems like Google Maps for calculating the fastest route.</li>
+                    <li>Routing packets in computer networks to optimize data transmission.</li>
+                    <li>Finding the least-cost paths in transportation and logistics industries.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Depth-First Search (DFS) and Breadth-First Search (BFS):</strong>
+                <p>These fundamental graph traversal algorithms explore nodes and edges systematically.</p>
+                <p><em>Applications:</em></p>
+                <ul>
+                    <li>DFS: Solving maze problems, topological sorting, and detecting cycles in graphs.</li>
+                    <li>BFS: Finding the shortest path in unweighted graphs, broadcasting messages in networks.</li>
+                </ul>
+            </li>
         </ul>
-    </div>
+        <p>Graph algorithms form the backbone of solutions for problems involving connectivity, optimization, and traversal in real-world networks, ensuring efficiency and reliability in their applications.</p>
+    </section>
 
-    <div class="question">
-        <h3>➡ The hierarchical data and how different tree data structures solve and optimize over the problem scenarios (tree, bst, avl, 2-3, red-black, heap, trie)</h3>
-        
-        <div class="highlight">
-            <ul>
-                <li><strong>Binary Search Tree (BST):</strong> Used for data with fast lookup, insertion, and deletion (average-case O(log n)). Limitation: Can become unbalanced, leading to O(n) operations in the worst case.</li>
-                <li><strong>AVL Tree(0,1,-1):</strong> Used for Balancing the BST by maintaining a height difference of at most 1 between subtrees. Optimization: O(log n), insertion and deletion but requires to balance operations.</li>
-                <li><strong>2-3 Tree:</strong> Ensures balance by having 2 or 3 children per node. Optimization: Provides consistent height, making it efficient.</li>
-                <li><strong>Red-Black Tree:</strong> Self-balancing BST with less conditions balancing rules than AVL. Optimization: Efficient insertion and deletion (O(log n)) with fewer rotations compared to AVL.</li>
-                <li><strong>Heap:</strong> Finds the smallest or largest element efficiently and it is called Priority-based operation Optimization: Used in algorithms like Dijkstra's and O(log n) for insertions and deletions.</li>
-                <li><strong>Trie (Prefix Tree):</strong> It is a data structure used to store and quickly find words or sequences, like in a dictionary. It organizes data so we can efficiently search, insert, or check prefixes of words. Optimization: Minimizes redundancy and O(L) search time.</li>
-            </ul>
-        </div>
-    </div>
+    <section>
+        <h2>Key Concepts in Algorithms</h2>
 
-    <div class="question">
-        <h3>➡ The need of array query algorithms and their implications. Their applications and principles need to be discussed</h3>
-        
-        <h4>Principles of Array Query Algorithms:</h4>
-        <ul>
-            <li>Optimization - It has a Balancing preprocessing time and it is with query time to to get all archives overall efficiency</li>
-            <li>Divide and Conquer - Breaking queries into smaller subproblems for efficient computation</li>
-            <li>Dynamic Programming - Storing intermediate results to avoid redundant calculations</li>
-        </ul>
+        <h3>1) What is the significance of time complexity in algorithms?</h3>
+        <p>
+            Time complexity provides a theoretical measure of the efficiency of an algorithm, helping to predict its performance as input size grows. It allows developers to choose the most optimal algorithm for solving a problem in terms of execution time.
+        </p>
 
-        <h4>Array Query Algorithms:</h4>
-        <p>Array Query Algorithms are methods used to quickly get, change, or analyze data in large arrays. They focus on:</p>
-        <ol>
-            <li>getting data quickly</li>
-            <li>Handling complex data efficiently</li>
-            <li>Reducing the time and effort needed for computations</li>
-        </ol>
+        <h3>2) How does divide-and-conquer work in problem-solving?</h3>
+        <p>
+            Divide-and-conquer splits a problem into smaller subproblems, solves them recursively, and combines their solutions. This technique is used in algorithms like merge sort and quick sort to improve efficiency and scalability.
+        </p>
 
-        <div class="explanation">
-            <h4>Techniques:</h4>
-            <ul>
-                <li><strong>Binary Search(Binary index tree)</strong><br>
-                    Principle: Divide and conquer one<br>
-                    Efficiency: O(log n) (average-case hai)<br>
-                    Requirements: Sorted array<br>
-                    Applications: used in Large sorted databases</li>
-                
-                <li><strong>Sliding Window Technique</strong><br>
-                    Principle: Maintain a window of elements<br>
-                    Efficiency: O(n)<br>
-                    Applications: used in Network traffic analysis and Signal processing</li>
-                
-                <li><strong>Two Pointer Technique</strong><br>
-                    Principle: Use two pointers to traverse array<br>
-                    Efficiency: O(n)<br>
-                    Applications: used in Removing duplicates and Reversing arrays</li>
-                
-                <li><strong>Segment Tree</strong><br>
-                    Principle: Divide array into segments<br>
-                    Efficiency: O(log n)<br>
-                    Applications: Range min/max queries</li>
-            </ul>
-        </div>
-    </div>
+        <h3>3) Why are graph algorithms essential in computer science?</h3>
+        <p>
+            Graph algorithms solve complex connectivity and optimization problems in networks. From finding the shortest path to constructing efficient road networks, they play a pivotal role in both theoretical and practical applications.
+        </p>
 
-    <div class="question">
-        <h3>➡ Differentiate between tree and graphs and their traversals. The applications of each</h3>
-        
-        <div class="highlight">
-            <p><strong>Difference Between Trees and Graphs:</strong> A tree is a hierarchical, acyclic structure with 𝑛−1 edges for n nodes, where relationships are implicit (parent-child). A graph is a general structure that can be cyclic or disconnected, with directed or undirected edges and no specific edge limit.</p>
-        </div>
+        <h3>4) What is the role of dynamic programming in optimization?</h3>
+        <p>
+            Dynamic programming stores intermediate results to avoid redundant calculations, ensuring efficiency in solving overlapping subproblem-based tasks. Examples include finding the longest common subsequence or solving the knapsack problem.
+        </p>
 
-        <h4>Traversals:</h4>
-        <p>In trees, common traversals include in-order, pre-order, post-order, and level-order. In graphs, traversals include depth-first search (DFS) and breadth-first search (BFS).</p>
+        <h3>5) What differentiates greedy algorithms from dynamic programming?</h3>
+        <p>
+            Greedy algorithms make locally optimal choices in the hope of finding a global solution, while dynamic programming considers all possibilities and stores intermediate results for optimal outcomes. Examples include Kruskal's MST (greedy) and Floyd-Warshall for shortest paths (dynamic programming).
+        </p>
 
-        <h4>Applications:</h4>
-        <ul>
-            <li>Trees: Used in hierarchical data like file systems, database indexing, and syntax trees</li>
-            <li>Graphs: Applied in networks, social media, shortest path problems</li>
-        </ul>
-    </div>
+        <h3>6) How do sorting algorithms apply to real-world scenarios?</h3>
+        <p>
+            Sorting algorithms like merge sort and quick sort are used in database indexing, organizing e-commerce product catalogs, and managing files efficiently.
+        </p>
 
-    <div class="question">
-        <h3>➡ Deliberate on sorting and searching algorithms, the technique behind each and they connect to real world</h3>
-        
-        <ul>
-            <li><strong>Bubble Sort</strong><br>
-                Technique: Repeatedly compares adjacent elements and swaps them if they are in the wrong order. This process continues until the entire list is sorted.<br>
-                Complexity: O(n²) in the worst and average cases.<br>
-                Real-World Use: Used for small datasets.</li>
-            
-            <li><strong>Selection Sort</strong><br>
-                Technique: Finds the smallest element in the unsorted portion of the list and swaps it with the first unsorted element.<br>
-                Complexity: O(n²)<br>
-                Real-World Use: Used in minimizing the number of swaps is necessary, such as in memory-limited devices.</li>
-            
-            <li><strong>Insertion Sort(used in gambling)</strong><br>
-                Technique: Builds the list one element at a time by inserting each new element into its correct position.<br>
-                Complexity: O(n²) in the worst case but O(n) in the best case.<br>
-                Real-World Use: used in gambling.</li>
-            
-            <li><strong>Merge Sort</strong><br>
-                Technique: A divide-and-conquer algorithm that splits the list into halves, recursively sorts them, and then merges the sorted halves.<br>
-                Complexity: O(n log n) in all cases.<br>
-                Real-World Use: Used for sorting large datasets, external sorting.</li>
-            
-            <li><strong>Quick Sort(i,j)</strong><br>
-                Technique: Another divide-and-conquer method, which partitions the array around a pivot and recursively sorts the partitions.<br>
-                Complexity: O(n log n) on average but O(n²) in the worst case (bad pivot selection).<br>
-                Real-World Use: Preferred for general-purpose sorting in programming libraries due to its efficiency and in-memory sorting.</li>
-            
-            <li><strong>Heap Sort</strong><br>
-                Technique: Builds a max-heap (or min-heap) from the input data, repeatedly extracts the maximum (or minimum) element, and rebuilds the heap.<br>
-                Complexity: O(n log n) in all cases.<br>
-                Real-World Use: Useful in priority queues and scenarios requiring in-place sorting.</li>
-        </ul>
-    </div>
-
-    <div class="question">
-        <h3>➡ Discuss the importance of graph algorithms with respect to spanning trees and shortest paths</h3>
-        
-        <h4>Spanning Trees:</h4>
-        <ul>
-            <li><strong>Kruskal's Algorithm</strong><br>
-                Sorts edges by weight(first sorting edges and thene keep adding the edges in until it becomes a spanning tree)<br>
-                Add lowest-weight edges without creating cycles</li>
-            
-            <li><strong>Prim's Algorithm</strong><br>
-                Start from single node<br>
-                Grow tree by adding lowest-weight connected edges<br>
-                Shortest Path Algorithms: Navigation Optimization</li>
-        </ul>
-
-        <h4>Shortest Path Algorithms:</h4>
-        <ul>
-            <li><strong>Dijkstra's Algorithm</strong><br>
-                Purpose: Find shortest path in weighted graphs<br>
-                Applications: GPS navigation and Transportation planning<br>
-                For the graphs having negative weight dijkstra's can not gice current path that's why we use ballman-ford</li>
-            
-            <li><strong>Floyd-Warshall Algorithm</strong><br>
-                Computes all-pairs shortest paths.<br>
-                Real-World Relevance Shortest path, so we can think as a real-time shortesr path in transportation.</li>
-            
-            <li><strong>Ball-man Ford Algorithm</strong><br>
-                If there is negative value go for this algorithm otherwise go for dijkstra's algorithm<br>
-                Ball-man fords can detect negative weight cycles from graphs</li>
-        </ul>
-    </div>
-
-    <div class="question">
-        <h3>➡ Discuss about the different studied algorithm design techniques.</h3>
-        
-        <ul>
-            <li><strong>Brute Force:</strong> Explores all possible solutions, guaranteeing an answer but is high runtime/space complexity. Best for small inputs or verifying algorithms.</li>
-            
-            <li><strong>Recursive Algorithms:</strong> Solve problems by breaking them into smaller. Examples are factorials and tree traversals.</li>
-            
-            <li><strong>Divide and Conquer:</strong> Breaks problems into independent subproblems, solves them, and combines results. Examples include Merge Sort and Quick Sort.</li>
-            
-            <li><strong>Dynamic Programming:</strong> Solves problems by breaking them into subproblems, storing results to avoid the recomputation. Used in Fibonacci sequences.</li>
-        </ul>
-    </div>
-
-    <div class="question">
-        <h3>➡ How do you determine the most efficient approach when solving a complex problem?</h3>
-        
-        <p>Starting with understanding and thinking of the best and easiest way to solve the problem, choosing which algorithm will suite this problem and executeing it. If all the testcases passes we go Analyze the results, learn from the process, and improve for further problems.</p>
-    </div>
-
+        <h3>7) What is the importance of edge relaxation in graph algorithms?</h3>
+        <p>
+            Edge relaxation is used in algorithms like Dijkstra's and Bellman-Ford to iteratively improve the shortest path estimation. This technique ensures optimal routing and efficient communication in networks.
+        </p>
+    </section>
 </body>
 </html>
+

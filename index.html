@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -17,6 +18,16 @@
             color: #ffffff;
             line-height: 1.6;
             padding: 2rem;
+            position: relative;
+        }
+
+        .circle {
+	    position: absolute;
+        border: solid 1px #ccc;
+	    width: 10px; 
+	    height: 10px; 
+        border-radius: 50%; 
+        background-color: #ccc; 
         }
 
         .navbar {
@@ -46,22 +57,22 @@
             margin-bottom: 4rem;
         }
 
-    .profile-image {
-        width: 120px;
-        height: 120px;
-        margin-bottom: 2rem;
-        overflow: hidden;
-        border-radius: 50%;
-    }
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            border-radius: 50%;
+        }
 
-    .profile-image img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-        border-radius: 50%;
-        filter: grayscale(100%);
-        transition: filter 0.3s ease;
-    }
+        .profile-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 50%;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
 
         .profile-image img:hover {
             filter: grayscale(0%);
@@ -142,11 +153,12 @@
             padding: 0.75rem 1rem;
             background-color: #333333;
             border-radius: 4px;
-            transition: background-color 0.2s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         .reflection-button:hover {
-            background-color: #444444;
+            background-color: #555555;
+            transform: scale(1.1);
         }
 
         @media (min-width: 768px) {
@@ -171,6 +183,7 @@
     </style>
 </head>
 <body>
+    <span id="circle" class="circle"></span>
     <nav class="navbar">
         <a href="index1.html" class="nav-link">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
@@ -224,5 +237,24 @@
             </a>
         </section>
     </main>
+    <script>
+        jQuery(document).ready(function() {
+
+        var mouseX = 0, mouseY = 0;
+        var xp = 0, yp = 0;
+        
+        $(document).mousemove(function(e){
+        mouseX = e.pageX - 30;
+        mouseY = e.pageY - 30; 
+        });
+        
+        setInterval(function(){
+        xp += ((mouseX - xp)/6);
+        yp += ((mouseY - yp)/6);
+        $("#circle").css({left: xp +'px', top: yp +'px'});
+        }, 20);
+
+        });
+    </script>
 </body>
 </html>
