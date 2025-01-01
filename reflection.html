@@ -99,6 +99,26 @@
             margin-bottom: 0.75rem;
             position: relative;
         }
+        .back-button {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            text-decoration: none;
+            color: var(--bg-color);
+            background-color: var(--accent-color);
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #e6c200;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
 
         ul li::before {
             content: '•';
@@ -169,6 +189,14 @@
                 font-size: 2rem;
             }
 
+            header p {
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 1.5rem;
+            }
+
             section h2 {
                 font-size: 1.5rem;
             }
@@ -177,13 +205,60 @@
                 font-size: 0.95rem;
             }
 
+            table th, table td {
+                padding: 0.75rem;
+            }
+
             a {
                 padding: 0.6rem 1rem;
+            }
+            .back-button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+                border-radius: 6px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            header p {
+                font-size: 0.9rem;
+            }
+
+            section {
+                padding: 1rem;
+            }
+
+            section h2 {
+                font-size: 1.3rem;
+            }
+
+            section p, ul li {
+                font-size: 0.85rem;
+            }
+
+            table th, table td {
+                padding: 0.5rem;
+            }
+
+            a {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.9rem;
+            }
+            .back-button {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.85rem;
+                top: 0.5rem; /* Adjust for smaller screens */
+                left: 0.5rem;
             }
         }
     </style>
 </head>
 <body>
+    <a href="index.html" class="back-button">Back</a>
     <header>
         <h1>Algorithm Design and Analysis Concepts</h1>
         <p>A comprehensive guide to key topics in algorithm design, efficiency, and real-world applications.</p>
