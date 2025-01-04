@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Pochinki</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --accent: #007CF0;
+            --accent-gradient: linear-gradient(90deg, #007CF0, #00DFD8);
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --card-shadow: 0 0 20px rgba(0, 124, 240, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            background: radial-gradient(circle at center, #111111 0%, #000000 100%);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin: 4rem 0 2rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--bg-tertiary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-title {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .card-content {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .info-section {
+            background: rgba(0, 124, 240, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+        }
+
+        .tag-container {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .tag {
+            background: rgba(0, 124, 240, 0.1);
+            color: var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: rgba(0, 124, 240, 0.2);
+        }
+
+        .code-block {
+            background: var(--bg-tertiary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .details-section {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+        }
+
+        .efficiency-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 124, 240, 0.1);
+            color: var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+        }
+
+        .related-cases {
+            margin-top: 4rem;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+        }
+
+        .related-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .related-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .related-item {
+            padding: 1rem;
+            border-left: 2px solid var(--accent);
+            margin: 1rem 0;
+            background: var(--bg-tertiary);
+            border-radius: 0 8px 8px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .card-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent-gradient);
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+
+        .expandable {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .expandable::after {
+            content: '↓';
+            position: absolute;
+            right: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .expanded::after {
+            transform: rotate(180deg);
+        }
+
+        .content-hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+    
+    <section class="hero">
+        <h1>Project Pochinki</h1>
+        <p>A sustainable city relies heavily on efficient food production, management, and distribution systems. The region's fertile soil is well-suited for cultivating crops such as groundnuts, jowar, and rice. These crops not only fulfil the city's food requirements but also create significant trade opportunities due to their high demand.</p>
+    </section>
+
+    <div class="container" id="mainContent">
+        <!-- Content will be dynamically inserted here -->
+    </div>
+
+    <script>
+  const cases = [
+    {
+        title: "Rain Prediction for Disaster Prevention",
+        icon: "fa-cloud-rain",
+        description: "The crops grown in this region, like groundnuts, wheat, tomatoes, potatoes, citrus fruits, and leafy vegetables, require a lot of water and can be easily damaged by heavy rainfall during harvest time.",
+        fullDescription: "Thanks to the strong technological presence and stronger inter-city relations, Pochinki collects data from sensors placed throughout the city and neighbouring areas. These sensors track important factors like wind speed, air quality, humidity, and sunlight, which are stored in a dataset.",
+        implementation: {
+            sampleText: "LWHHB HWHHD HWHHB HWLHD",
+            pattern: "HWHHD",
+            explanation: "Every 5 letters describe the weather at a particular hour. First 2 letters about wind speed: LW = Low windspeed, next 2 about humidity: HH = High HUmidity, last letter about sunlight, B: Bright. HWHHD indicates rain."
+        },
+        sdg: "11",
+        target: "11.5",
+        indicators: ["11.5.1", "11.5.2", "11.5.3(a)", "11.5.3(b)"],
+        algorithm: "Boyer-Moore",
+        efficiency: "O(m+n)",
+        principles: ["Sliding Window", "Pruning", "Prefix and Suffix"]
+    },
+    {
+        title: "Dictionary for Crops and Seeds",
+        icon: "fa-seedling",
+        description: "Creating a dictionary to assist farmers and municipal corporations to keep a record of seeds and crops.",
+        fullDescription: "This dictionary would assist the farmers and the municipality in establishing good ties with urban, peri-urban and rural areas. This dictionary should just show if there is availability of a certain seed or a crop.",
+        sdg: "11",
+        target: "11.a",
+        indicators: ["11.a.1"],
+        algorithm: "Trie",
+        efficiency: "O(1) lookup",
+        principles: ["Space-Time Tradeoff"]
+    },
+    {
+        title: "Expiry Date Management",
+        icon: "fa-calendar-alt",
+        description: "Create a way to store expiry date of a batch so that priority can be given to them, and waste can be reduced.",
+        fullDescription: "As each new batch is stored inside a warehouse or any other storing facility, priority should be given to each batch based on its expiry date to reduce food wastage.",
+        sdg: "11",
+        target: "11.6",
+        indicators: ["11.6.1"],
+        algorithm: "Binary Search Tree",
+        efficiency: "O(log n)",
+        principles: ["Hierarchical Data", "Dynamic Allocation"]
+    },
+    {
+        title: "Produce Classification",
+        icon: "fa-sort-amount-down",
+        description: "Sort the produce or rather classify the produce according to size and quality to make tiers to sell at the market.",
+        fullDescription: "Classifying the produce according to quality/volume allows for better economic growth and better trade as lower tiers are more affordable. This increases trade between urban, peri-urban and rural areas.",
+        sdg: "11",
+        target: "11.a",
+        indicators: ["11.a.1"],
+        algorithm: "Quick Sort",
+        efficiency: "O(n log n)",
+        principles: ["Divide-and-Conquer"]
+    },
+    {
+        title: "Market Price Tracking",
+        icon: "fa-chart-line",
+        description: "Track market prices of produce that fluctuate in the national market at a very high frequency.",
+        fullDescription: "Some Food grains and produce fluctuate in the national market at a very high frequency, which reflects the demand and supply of produce. It also helps determine the value of a product for the day/event.",
+        sdg: "11",
+        target: "11.a",
+        indicators: ["11.a.1"],
+        algorithm: "Fenwick Trees",
+        efficiency: "O(log n)",
+        principles: ["Bit Manipulation"]
+    },
+    {
+        title: "Optimal Storage Location",
+        icon: "fa-warehouse",
+        description: "Make warehouses at optimal locations around the city for quick relief if disaster strikes.",
+        fullDescription: "The optimal placement of warehouses also reduces the cost of transport. Consider regions around the city as nodes and the distance between possible locations of warehouses as edges.",
+        sdg: "11",
+        target: "11.5",
+        indicators: ["11.5.1"],
+        algorithm: "Kruskal's",
+        efficiency: "O(E log|V|)",
+        principles: ["Greedy Technique"]
+    },
+    {
+        title: "Storage Location Mapping",
+        icon: "fa-map-marker-alt",
+        description: "Map products to warehouses efficiently to maintain inventory.",
+        fullDescription: "Inventory is very important to maintain as even striking deals with neighbouring cities require this data. Fast retrievals can be achieved using hashing.",
+        sdg: "11",
+        target: "11.a",
+        indicators: ["11.a.1"],
+        algorithm: "Hashing",
+        efficiency: "O(1)",
+        principles: ["Space-Time Tradeoff"]
+    },
+    {
+        title: "Distribution Cost Optimization",
+        icon: "fa-truck",
+        description: "Minimize the cost of distributing to multiple warehouses from multiple production areas.",
+        fullDescription: "From multiple production areas to multiple warehouses and from multiple warehouses to marketplaces, schools, restaurants, and other places of food consumption.",
+        sdg: "11",
+        target: "11.a",
+        indicators: ["11.a.1"],
+        algorithm: "Floyd's",
+        efficiency: "O(n³)",
+        principles: ["Kleene's Closure", "Dynamic Programming"]
+    },
+    {
+        title: "Food Inspection Routes",
+        icon: "fa-clipboard-check",
+        description: "To find the shortest (minimum cost) path for the inspector to visit all storage and distribution areas.",
+        fullDescription: "The Food inspectors leave the municipal corporation to all the food storage and distribution areas, requiring a single source shortest path.",
+        sdg: "11",
+        target: "11.5",
+        indicators: ["11.5.1", "11.5.3(b)"],
+        algorithm: "Dijkstra's",
+        efficiency: "O(E log|V|)",
+        principles: ["Greedy Technique"]
+    },
+    {
+        title: "Batch Recall System",
+        icon: "fa-undo",
+        description: "Quick system to recall food batches if found to be bad or contaminated.",
+        fullDescription: "If a certain batch of food is found to be bad, the manufacturer or the food inspector will call it back. The food batch number has to be searched in a data set quickly.",
+        sdg: "11",
+        target: "11.5",
+        indicators: ["11.5.1", "11.5.3(b)"],
+        algorithm: "Rabin-Karp",
+        efficiency: "O(m+n), worst case: O(mn)",
+        principles: ["Space-Time Tradeoff"]
+    }
+];
+
+const otherCases = [
+    {
+        title: "Bus Scheduling",
+        description: "The city of Pochinki, although well connected by multiple modes of transport, heavily depends on its public bus services. Infrequent and poorly scheduled bus services would lead to overcrowding and an unsatisfied user base."
+    },
+    {
+        title: "Mining",
+        description: "Deposits of Mica, Graphite and Quartz mineral ores have been identified near the city's outskirts (close to Damod). These ores can be mined and transported to Pochinki's industrial area for further processing using the robust railway."
+    },
+    {
+        title: "City Cleaning Maintenance",
+        description: "City cleaning, maintenance, proper garbage disposal, and efficiently segregating recyclable, non-recyclable, biodegradable, and other kinds of waste. A clean city invites more people, which increases the commercial activities."
+    },
+    {
+        title: "Medical Health Camp",
+        description: "Health checkups at lower prices for specific regions. Hospitals need to coordinate and circulate this responsibility, covering the entire city."
+    }
+];
+        function createCase(caseData) {
+            return `
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas ${caseData.icon} card-icon"></i>
+                        <h2 class="card-title">${caseData.title}</h2>
+                    </div>
+                    
+                    <div class="card-content">
+                        <p>${caseData.description}</p>
+                        ${caseData.fullDescription ? `<p>${caseData.fullDescription}</p>` : ''}
+                    </div>
+
+                    <div class="info-section">
+                        <h3>SDG Information</h3>
+                        <p>SDG: ${caseData.sdg}</p>
+                        <p>Target: ${caseData.target}</p>
+                        <p>Indicators: ${caseData.indicators ? caseData.indicators.join(', ') : ''}</p>
+                    </div>
+
+                    ${caseData.implementation ? `
+                        <div class="details-section expandable">
+                            <h3>Implementation Details</h3>
+                            <div class="content-hidden">
+                                <div class="code-block">
+                                    Sample Text: ${caseData.implementation.sampleText}
+                                    Pattern: ${caseData.implementation.pattern}
+                                    ${caseData.implementation.explanation}
+                                </div>
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    <div class="efficiency-badge">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Efficiency: ${caseData.efficiency}
+                    </div>
+
+                    <div class="tag-container">
+                        ${caseData.principles ? caseData.principles.map(principle => 
+                            `<span class="tag">${principle}</span>`
+                        ).join('') : ''}
+                        ${caseData.algorithm ? `<span class="tag">${caseData.algorithm} Algorithm</span>` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        const mainContent = document.getElementById('mainContent');
+        cases.forEach(caseData => {
+            mainContent.innerHTML += createCase(caseData);
+        });
+
+        // Add related cases section
+        mainContent.innerHTML += `
+            <div class="related-cases">
+                <h2 class="related-title">Other Business Use Cases</h2>
+                <ul class="related-list">
+                    ${otherCases.map(relatedCase => `
+                        <li class="related-item">
+                            <h3>${relatedCase.title}</h3>
+                            <p>${relatedCase.description}</p>
+                        </li>
+                    `).join('')}
+                </ul>
+            </div>
+        `;
+
+        // Scroll indicator
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollIndicator').style.width = scrolled + '%';
+        });
+
+        // Expandable sections
+        document.querySelectorAll('.expandable').forEach(element => {
+            element.addEventListener('click', () => {
+                element.classList.toggle('expanded');
+                const content = element.querySelector('.content-hidden');
+                content.style.display = content.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
+</body>
+</html>
