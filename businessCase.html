@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Pochinki</title>
+    <title>Business Cases-Shivanand</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
@@ -260,7 +260,7 @@
     <div class="scroll-indicator" id="scrollIndicator"></div>
     
     <section class="hero">
-        <h1>Project Pochinki</h1>
+        <h1>Food Production and Distribution</h1>
         <p>A sustainable city relies heavily on efficient food production, management, and distribution systems. The region's fertile soil is well-suited for cultivating crops such as groundnuts, jowar, and rice. These crops not only fulfil the city's food requirements but also create significant trade opportunities due to their high demand.</p>
     </section>
 
@@ -280,7 +280,8 @@
         indicators: ["11.5.1", "11.5.2", "11.5.3(a)", "11.5.3(b)"],
         algorithm: "Boyer-Moore",
         efficiency: "O(m+n)",
-        principles: ["Sliding Window", "Pruning", "Prefix and Suffix"]
+        principles: ["Sliding Window", "Pruning", "Prefix and Suffix"],
+        link:"https://github.com/Shivanand-hulikatti/daa-portfolio/blob/main/codeImplementations/boyerMoore.cpp"
     },
     {
         title: "Dictionary for Crops and Seeds",
@@ -292,7 +293,8 @@
         indicators: ["11.a.1"],
         algorithm: "Trie",
         efficiency: "O(1) lookup",
-        principles: ["Space-Time Tradeoff"]
+        principles: ["Space-Time Tradeoff"],
+        link:"https://github.com/Shivanand-hulikatti/daa-portfolio/blob/main/codeImplementations/trie.cpp"
     },
     {
         title: "Expiry Date Management",
@@ -304,7 +306,8 @@
         indicators: ["11.6.1"],
         algorithm: "Binary Search Tree",
         efficiency: "O(log n)",
-        principles: ["Hierarchical Data", "Dynamic Allocation"]
+        principles: ["Hierarchical Data", "Dynamic Allocation"],
+        link:"https://github.com/Shivanand-hulikatti/daa-portfolio/blob/main/codeImplementations/binarySearch.cpp"
     },
     {
         title: "Produce Classification",
@@ -316,7 +319,8 @@
         indicators: ["11.a.1"],
         algorithm: "Quick Sort",
         efficiency: "O(n log n)",
-        principles: ["Divide-and-Conquer"]
+        principles: ["Divide-and-Conquer"],
+        link: "https://github.com/Shivanand-hulikatti/daa-portfolio/blob/main/codeImplementations/quickSort.cpp"
     },
     {
         title: "Market Price Tracking",
@@ -328,7 +332,8 @@
         indicators: ["11.a.1"],
         algorithm: "Fenwick Trees",
         efficiency: "O(log n)",
-        principles: ["Bit Manipulation"]
+        principles: ["Bit Manipulation"],
+        link:"https://github.com/Shivanand-hulikatti/daa-portfolio/blob/main/codeImplementations/fenvickTree.cpp"
     },
     {
         title: "Optimal Storage Location",
@@ -340,7 +345,8 @@
         indicators: ["11.5.1"],
         algorithm: "Kruskal's",
         efficiency: "O(E log|V|)",
-        principles: ["Greedy Technique"]
+        principles: ["Greedy Technique"],
+        link:"https://github.com/Shivanand-hulikatti/daa-portfolio/blob/main/codeImplementations/krushkal.cpp"
     },
     {
         title: "Storage Location Mapping",
@@ -352,7 +358,8 @@
         indicators: ["11.a.1"],
         algorithm: "Hashing",
         efficiency: "O(1)",
-        principles: ["Space-Time Tradeoff"]
+        principles: ["Space-Time Tradeoff"],
+        link:"https://github.com/Shivanand-hulikatti/daa-portfolio/blob/main/codeImplementations/hashing.cpp"
     },
     {
         title: "Distribution Cost Optimization",
@@ -364,7 +371,8 @@
         indicators: ["11.a.1"],
         algorithm: "Floyd's",
         efficiency: "O(n³)",
-        principles: ["Kleene's Closure", "Dynamic Programming"]
+        principles: ["Kleene's Closure", "Dynamic Programming"],
+        link:"https://github.com/Shivanand-hulikatti/daa-portfolio/blob/main/codeImplementations/floyd.cpp"
     },
     {
         title: "Food Inspection Routes",
@@ -376,7 +384,8 @@
         indicators: ["11.5.1", "11.5.3(b)"],
         algorithm: "Dijkstra's",
         efficiency: "O(E log|V|)",
-        principles: ["Greedy Technique"]
+        principles: ["Greedy Technique"],
+        link:"https://github.com/Shivanand-hulikatti/daa-portfolio/blob/main/codeImplementations/Dijkstra.cpp"
     },
     {
         title: "Batch Recall System",
@@ -388,7 +397,8 @@
         indicators: ["11.5.1", "11.5.3(b)"],
         algorithm: "Rabin-Karp",
         efficiency: "O(m+n), worst case: O(mn)",
-        principles: ["Space-Time Tradeoff"]
+        principles: ["Space-Time Tradeoff"],
+        link:"https://github.com/Shivanand-hulikatti/daa-portfolio/blob/main/codeImplementations/rabinKarp.cpp"
     }
 ];
 
@@ -412,49 +422,42 @@ const otherCases = [
 ];
         function createCase(caseData) {
             return `
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fas ${caseData.icon} card-icon"></i>
-                        <h2 class="card-title">${caseData.title}</h2>
-                    </div>
-                    
-                    <div class="card-content">
-                        <p>${caseData.description}</p>
-                        ${caseData.fullDescription ? `<p>${caseData.fullDescription}</p>` : ''}
-                    </div>
-
-                    <div class="info-section">
-                        <h3>SDG Information</h3>
-                        <p>SDG: ${caseData.sdg}</p>
-                        <p>Target: ${caseData.target}</p>
-                        <p>Indicators: ${caseData.indicators ? caseData.indicators.join(', ') : ''}</p>
-                    </div>
-
-                    ${caseData.implementation ? `
-                        <div class="details-section expandable">
-                            <h3>Implementation Details</h3>
-                            <div class="content-hidden">
-                                <div class="code-block">
-                                    Sample Text: ${caseData.implementation.sampleText}
-                                    Pattern: ${caseData.implementation.pattern}
-                                    ${caseData.implementation.explanation}
-                                </div>
-                            </div>
-                        </div>
-                    ` : ''}
-
-                    <div class="efficiency-badge">
-                        <i class="fas fa-tachometer-alt"></i>
-                        Efficiency: ${caseData.efficiency}
-                    </div>
-
-                    <div class="tag-container">
-                        ${caseData.principles ? caseData.principles.map(principle => 
-                            `<span class="tag">${principle}</span>`
-                        ).join('') : ''}
-                        ${caseData.algorithm ? `<span class="tag">${caseData.algorithm} Algorithm</span>` : ''}
-                    </div>
+            <div class="card">
+                <div class="card-header">
+                <i class="fas ${caseData.icon} card-icon"></i>
+                <h2 class="card-title">${caseData.title}</h2>
                 </div>
+                
+                <div class="card-content">
+                <p>${caseData.description}</p>
+                ${caseData.fullDescription ? `<p>${caseData.fullDescription}</p>` : ''}
+                </div>
+
+                <div class="info-section">
+                <h3>SDG Information</h3>
+                <p>SDG: ${caseData.sdg}</p>
+                <p>Target: ${caseData.target}</p>
+                <p>Indicators: ${caseData.indicators ? caseData.indicators.join(', ') : ''}</p>
+                </div>
+
+                <div class="efficiency-badge">
+                <i class="fas fa-tachometer-alt"></i>
+                Efficiency: ${caseData.efficiency}
+                </div>
+
+                <div class="tag-container">
+                ${caseData.principles ? caseData.principles.map(principle => 
+                    `<span class="tag">${principle}</span>`
+                ).join('') : ''}
+                ${caseData.algorithm ? `<span class="tag">${caseData.algorithm} Algorithm</span>` : ''}
+                </div>
+
+                <div class="code-block">
+                    <a href="${caseData.link}" target="_blank" class="code-link">
+                        <i class="fas fa-code"></i> View Code Implementation
+                    </a>
+                </div>
+            </div>
             `;
         }
 
