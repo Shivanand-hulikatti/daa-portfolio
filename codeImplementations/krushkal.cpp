@@ -1,92 +1,108 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+
+#define NUM_VERTICES 4
+
 using namespace std;
 
-class DisjointSet {
-private:
-    vector<int> parent, rank;
+class Edge {
+    public:
+        int src, dest, weight;
+    };
 
-public:
-    DisjointSet(int n) {
-        parent.resize(n);
-        rank.resize(n, 0);
-        for (int i = 0; i < n; i++) {
-            parent[i] = i;  // Initially, each node is its own parent
+    class Graph {
+    public:
+        int numVertices, numEdges;
+        vector<Edge> edges;
+
+        Graph(int numVertices, int numEdges) {
+            this->numVertices = numVertices;
+            this->numEdges = numEdges;
         }
-    }
 
-    int find(int u) {
-        if (parent[u] != u) {
-            parent[u] = find(parent[u]);  // Path compression
+        void addEdge(int u, int v, int w) {
+            Edge edge;
+            edge.src = u;
+            edge.dest = v;
+            edge.weight = w;
+            edges.push_back(edge);
         }
-        return parent[u];
-    }
 
-    void unionSets(int u, int v) {
-        int rootU = find(u);
-        int rootV = find(v);
+        int find(vector<int>& parent, int i) {
+            if (parent[i] == i)
+                return i;
+            return find(parent, parent[i]);
+        }
 
-        if (rootU != rootV) {
-            // Union by rank: Attach smaller rank tree under larger rank tree
-            if (rank[rootU] > rank[rootV]) {
-                parent[rootV] = rootU;
-            } else if (rank[rootU] < rank[rootV]) {
-                parent[rootU] = rootV;
-            } else {
-                parent[rootV] = rootU;
-                rank[rootU]++;
+        void Union(vector<int>& parent, vector<int>& rank, int x, int y) {
+            int xroot = find(parent, x);
+            int yroot = find(parent, y);
+
+            if (rank[xroot] < rank[yroot])
+                parent[xroot] = yroot;
+            else if (rank[xroot] > rank[yroot])
+                parent[yroot] = xroot;
+            else {
+                parent[yroot] = xroot;
+                rank[xroot]++;
+            }
+        }
+
+        void KruskalMST() {
+            vector<Edge> result;
+            int e = 0;
+            int i = 0;
+
+            sort(edges.begin(), edges.end(), [](Edge a, Edge b) {
+                return a.weight < b.weight;
+            });
+
+            vector<int> parent(numVertices);
+            vector<int> rank(numVertices, 0);
+
+            for (int v = 0; v < numVertices; ++v)
+                parent[v] = v;
+
+            while (e < numVertices - 1 && i < edges.size()) {
+                Edge next_edge = edges[i++];
+
+                int x = find(parent, next_edge.src);
+                int y = find(parent, next_edge.dest);
+
+                if (x != y) {
+                    result.push_back(next_edge);
+                    Union(parent, rank, x, y);
+                    e++;
+                }
+            }
+
+            cout << "Following are the edges in the constructed MST\n";
+            for (auto edge : result)
+                cout << edge.src << " -- " << edge.dest << " == " << edge.weight << endl;
+        }
+};
+
+int main() {
+    int graph[NUM_VERTICES][NUM_VERTICES] = {
+        {0, 1, 3, 0},
+        {1, 0, 3, 6},
+        {3, 3, 0, 2},
+        {0, 6, 2, 0}
+    };
+
+    Graph g(NUM_VERTICES, 0);
+
+    for (int i = 0; i < NUM_VERTICES; ++i) {
+        for (int j = i + 1; j < NUM_VERTICES; ++j) {
+            if (graph[i][j] != 0) {
+                g.addEdge(i, j, graph[i][j]);
             }
         }
     }
-};
 
-struct Edge {
-    int u, v, weight;
-    Edge(int u, int v, int weight) : u(u), v(v), weight(weight) {}
-};
-
-// Kruskal's Algorithm to find MST
-int kruskal(int V, vector<Edge>& edges) {
-    sort(edges.begin(), edges.end(), [](Edge& a, Edge& b) {
-        return a.weight < b.weight;  // Sort edges by their weights
-    });
-
-    DisjointSet ds(V);
-    int mstWeight = 0;
-    vector<Edge> mstEdges;
-
-    for (const auto& edge : edges) {
-        int u = edge.u, v = edge.v, weight = edge.weight;
-
-        // If u and v are in different sets, include this edge in MST
-        if (ds.find(u) != ds.find(v)) {
-            ds.unionSets(u, v);
-            mstEdges.push_back(edge);
-            mstWeight += weight;
-        }
-    }
-
-    cout << "Edges in the Minimum Spanning Tree:" << endl;
-    for (const auto& e : mstEdges) {
-        cout << e.u << " - " << e.v << " : " << e.weight << endl;
-    }
-
-    return mstWeight;
-}
-
-int main() {
-    int V = 4; // Number of vertices
-    vector<Edge> edges = {
-        {0, 1, 10},
-        {0, 2, 6},
-        {0, 3, 5},
-        {1, 3, 15},
-        {2, 3, 4}
-    };
-
-    int mstWeight = kruskal(V, edges);
-    cout << "Weight of the Minimum Spanning Tree: " << mstWeight << endl;
+    g.KruskalMST();
 
     return 0;
 }
+

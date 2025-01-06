@@ -1,29 +1,37 @@
 #include <iostream>
 #include <vector>
 #include <climits>
+
 using namespace std;
 
-#define INF INT_MAX  // Infinity value to represent no path
+#define V 4
 
-void floydWarshall(vector<vector<int>>& dist, int V) {
-    // dist[i][j] will be the shortest distance from vertex i to vertex j
+void floydWarshall(int graph[V][V]) {
+    int dist[V][V];
+
+    // Initialize the solution matrix same as input graph matrix
+    for (int i = 0; i < V; i++) {
+        for (int j = 0; j < V; j++) {
+            dist[i][j] = graph[i][j];
+        }
+    }
+
+    // Add all vertices one by one to the set of intermediate vertices
     for (int k = 0; k < V; k++) {
         for (int i = 0; i < V; i++) {
             for (int j = 0; j < V; j++) {
-                // If vertex k offers a shorter path from i to j, update dist[i][j]
-                if (dist[i][k] != INF && dist[k][j] != INF && dist[i][j] > dist[i][k] + dist[k][j]) {
+                if (dist[i][k] != INT_MAX && dist[k][j] != INT_MAX && dist[i][k] + dist[k][j] < dist[i][j]) {
                     dist[i][j] = dist[i][k] + dist[k][j];
                 }
             }
         }
     }
-}
 
-void printSolution(const vector<vector<int>>& dist, int V) {
-    cout << "Shortest distances between every pair of vertices: \n";
+    // Print the shortest distance matrix
+    cout << "The following matrix shows the shortest distances between every pair of vertices:" << endl;
     for (int i = 0; i < V; i++) {
         for (int j = 0; j < V; j++) {
-            if (dist[i][j] == INF) {
+            if (dist[i][j] == INT_MAX) {
                 cout << "INF ";
             } else {
                 cout << dist[i][j] << " ";
@@ -34,16 +42,14 @@ void printSolution(const vector<vector<int>>& dist, int V) {
 }
 
 int main() {
-    int V = 4;  // Number of vertices in the graph
-    vector<vector<int>> dist = {
-        {0, 3, INF, 7},
-        {8, 0, 2, INF},
-        {5, INF, 0, 1},
-        {2, INF, INF, 0}
+    int graph[V][V] = {
+        {0, 3, INT_MAX, 5},
+        {2, 0, INT_MAX, 4},
+        {INT_MAX, 1, 0, INT_MAX},
+        {INT_MAX, INT_MAX, 2, 0}
     };
 
-    floydWarshall(dist, V);
-    printSolution(dist, V);
+    floydWarshall(graph);
 
     return 0;
 }

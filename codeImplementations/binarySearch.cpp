@@ -1,35 +1,90 @@
 #include <iostream>
-#include <vector>
-using namespace std;
 
-int binarySearch(const vector<int> &arr, int target) {
-    int left = 0, right = arr.size() - 1;
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+    
+    Node(int value) : data(value), left(nullptr), right(nullptr) {}
+};
 
-    while (left <= right) {
-        int mid = left + (right - left) / 2; // Avoids overflow compared to (left + right) / 2
+class BinarySearchTree {
+public:
+    BinarySearchTree() : root(nullptr) {}
 
-        if (arr[mid] == target) {
-            return mid; // Target found
-        } else if (arr[mid] < target) {
-            left = mid + 1; // Search in the right half
+    void insert(int value) {
+        root = insertRec(root, value);
+    }
+
+    bool search(int value) {
+        return searchRec(root, value);
+    }
+
+    void inorder() {
+        inorderRec(root);
+    }
+
+private:
+    Node* root;
+
+    Node* insertRec(Node* node, int value) {
+        if (node == nullptr) {
+            return new Node(value);
+        }
+
+        if (value < node->data) {
+            node->left = insertRec(node->left, value);
+        } else if (value > node->data) {
+            node->right = insertRec(node->right, value);
+        }
+
+        return node;
+    }
+
+    bool searchRec(Node* node, int value) {
+        if (node == nullptr) {
+            return false;
+        }
+
+        if (node->data == value) {
+            return true;
+        }
+
+        if (value < node->data) {
+            return searchRec(node->left, value);
         } else {
-            right = mid - 1; // Search in the left half
+            return searchRec(node->right, value);
         }
     }
 
-    return -1; // Target not found
-}
+    void inorderRec(Node* node) {
+        if (node != nullptr) {
+            inorderRec(node->left);
+            std::cout << node->data << " ";
+            inorderRec(node->right);
+        }
+    }
+};
 
 int main() {
-    vector<int> arr = {1, 3, 5, 7, 9, 11, 13, 15};
-    int target = 7;
+    BinarySearchTree bst;
+    bst.insert(50);
+    bst.insert(30);
+    bst.insert(20);
+    bst.insert(40);
+    bst.insert(70);
+    bst.insert(60);
+    bst.insert(80);
 
-    int result = binarySearch(arr, target);
+    std::cout << "Inorder traversal of the BST: ";
+    bst.inorder();
+    std::cout << std::endl;
 
-    if (result != -1) {
-        cout << "Element found at index " << result << endl;
+    int searchValue = 40;
+    if (bst.search(searchValue)) {
+        std::cout << searchValue << " found in the BST." << std::endl;
     } else {
-        cout << "Element not found" << endl;
+        std::cout << searchValue << " not found in the BST." << std::endl;
     }
 
     return 0;
